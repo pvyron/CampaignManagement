@@ -4,6 +4,7 @@ public sealed class Campaign
 {
     private Campaign(string title, string? description, Person manager)
     {
+        Id = Guid.NewGuid();
         Title = title;
         Description = description;
         Manager = manager;
@@ -46,5 +47,15 @@ public sealed class Campaign
         _motivators.Add(motivator);
 
         return motivator;
+    }
+
+    public Person AddContact(string shortName, string? phoneNumber = null,
+        string? email = null, string? firstName = null, string? lastName = null, Person.PersonAgeGroup ageGroup = Person.PersonAgeGroup.Uknown)
+    {
+        var contact = Person.CreateContact(shortName, firstName ?? string.Empty, lastName ?? string.Empty, phoneNumber, email, ageGroup);
+        
+        _contacts.Add(contact);
+
+        return contact;
     }
 }
