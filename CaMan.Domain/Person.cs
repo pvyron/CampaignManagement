@@ -4,7 +4,7 @@ public sealed class Person
 {
     private Person(string shortName, string firstName, string lastName, PersonRole role, PersonAgeGroup ageGroup, string? email, string? phoneNumber)
     {
-        Id = Guid.NewGuid();
+        Id = Ulid.NewUlid();
         
         ShortName = shortName;
         FirstName = firstName;
@@ -15,7 +15,7 @@ public sealed class Person
         PhoneNumber = phoneNumber;
     }
 
-    public Guid Id { get; private set; }
+    public Ulid Id { get; private set; }
     public string ShortName { get; private set; }
     public string FirstName { get; private set; }
     public string LastName { get; private set; }

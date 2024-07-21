@@ -1,3 +1,9 @@
-﻿namespace CaMan.Domain.Campaigns;
+﻿using CaMan.Domain.Shared;
 
-public record CampaignId(Guid Value);
+namespace CaMan.Domain.Campaigns;
+
+public record CampaignId(Ulid Value) : EntityId(Value);
+// [StronglyTypedId]
+// public partial struct CampaignId
+// {
+// }

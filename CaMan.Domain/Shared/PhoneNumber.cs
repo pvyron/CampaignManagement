@@ -1,10 +1,10 @@
-﻿namespace CaMan.Domain.Contacts;
+﻿namespace CaMan.Domain.Shared;
 
-public record PhoneNumber()
+public record PhoneNumber
 {
     private const ushort PhoneNumberLength = 10; 
     
-    private PhoneNumber(string phone, string regionalPrefix) : this()
+    private PhoneNumber(string phone, string regionalPrefix)
     {
         if (phone.Length != PhoneNumberLength)
         {

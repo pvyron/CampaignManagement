@@ -1,3 +1,9 @@
-﻿namespace CaMan.Domain.Contacts;
+﻿using CaMan.Domain.Shared;
 
-public record ContactId(Guid Value);
+namespace CaMan.Domain.Contacts;
+
+public record ContactId(Ulid Value) : EntityId(Value);
+// [StronglyTypedId]
+// public partial struct ContactId
+// {
+// }

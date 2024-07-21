@@ -4,13 +4,13 @@ public sealed class Campaign
 {
     private Campaign(string title, string? description, Person manager)
     {
-        Id = Guid.NewGuid();
+        Id = Ulid.NewUlid();
         Title = title;
         Description = description;
         Manager = manager;
     }
 
-    public Guid Id { get; private set; }
+    public Ulid Id { get; private set; }
     public string Title { get; private set; }
     public string? Description { get; private set; }
     

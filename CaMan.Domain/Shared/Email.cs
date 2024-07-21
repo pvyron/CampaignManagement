@@ -1,4 +1,4 @@
-﻿namespace CaMan.Domain.Contacts;
+﻿namespace CaMan.Domain.Shared;
 
 public record Email()
 {
