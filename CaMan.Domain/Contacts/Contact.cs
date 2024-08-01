@@ -2,7 +2,7 @@
 
 namespace CaMan.Domain.Contacts;
 
-public class Contact
+public sealed class Contact
 {
     private Contact(ShortName shortName, FirstName? firstName, LastName? lastName, Email? email, PhoneNumber? phoneNumber, ContactCommunicationMethod communicationMethod, ContactAgeGroup ageGroup)
     {
@@ -61,10 +61,5 @@ public class Contact
     {
         return new Contact(shortName, firstName, lastName, email, phoneNumber, ContactCommunicationMethod.Phone_And_Email,
             ageGroup);
-    }
-
-    public void UpdateNames(ShortName? newShortName = null, FirstName? firstName = null, LastName? lastName = null)
-    {
-        ShortName = newShortName;
     }
 }
