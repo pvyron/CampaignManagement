@@ -17,6 +17,23 @@ public record ShortName
     }
 }
 
+public record FullName
+{
+    private FullName(string value) => Value = value;
+    
+    public string Value { get; } = string.Empty;
+
+    public static FullName Create(string value)
+    {
+        if (value.Length < 1)
+        {
+            throw new Exception("length invalid");
+        }
+        
+        return new FullName(value);
+    }
+}
+
 public record FirstName
 {
     private FirstName(string value) => Value = value;
