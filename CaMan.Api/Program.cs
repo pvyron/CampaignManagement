@@ -1,6 +1,7 @@
 using CaMan.Api.Middlewares;
-using CaMan.Api.OperationFilters;
+using CaMan.Api.OpenApi;
 using CaMan.Api.Services;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
+    options.AddSecurityDefinition(SecuritySchemas.UserHeader.Name, SecuritySchemas.UserHeader);
+    options.AddSecurityDefinition(SecuritySchemas.KeyHeader.Name, SecuritySchemas.KeyHeader);
     options.OperationFilter<AuthHeadersOperationFilter>();
 });
 builder.Services.AddScoped<IdentityScope>();

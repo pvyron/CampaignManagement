@@ -20,13 +20,18 @@ public class AuthMiddleware
 
         if (string.IsNullOrEmpty(emailHeader) || string.IsNullOrEmpty(keyHeader))
         {
-            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            await context.Response.WriteAsync("Unauthorized");
+            await ReturnUnauthorized(context);
             return;
         }
-        
+
         identityScope.Setup(emailHeader, keyHeader);
 
         await _next(context);
+    }
+
+    static async Task ReturnUnauthorized(HttpContext context)
+    {
+        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+        await context.Response.WriteAsync("Unauthorized");
     }
 }
