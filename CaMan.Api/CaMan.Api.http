@@ -1,0 +1,6 @@
+@CaMan.Api_HostAddress = https://localhost:5159
+
+GET {{CaMan.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
