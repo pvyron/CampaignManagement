@@ -10,10 +10,10 @@ public record ShortName
     {
         if (value.Length < 1)
         {
-            throw new Exception("length invalid");
+            throw new("length invalid");
         }
         
-        return new ShortName(value);
+        return new(value);
     }
 }
 
@@ -27,10 +27,10 @@ public record FullName
     {
         if (value.Length < 1)
         {
-            throw new Exception("length invalid");
+            throw new("length invalid");
         }
         
-        return new FullName(value);
+        return new(value);
     }
 }
 
@@ -44,10 +44,10 @@ public record FirstName
     {
         if (value.Length < 1)
         {
-            throw new Exception("length invalid");
+            throw new("length invalid");
         }
         
-        return new FirstName(value);
+        return new(value);
     }
 }
 
@@ -61,9 +61,9 @@ public record LastName
     {
         if (value.Length < 1)
         {
-            throw new Exception("length invalid");
+            throw new("length invalid");
         }
         
-        return new LastName(value);
+        return new(value);
     }
 }

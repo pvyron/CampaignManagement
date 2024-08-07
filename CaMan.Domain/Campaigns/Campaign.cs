@@ -1,16 +1,19 @@
 ﻿using CaMan.Domain.Contacts;
+using CaMan.Domain.Users;
 
 namespace CaMan.Domain.Campaigns;
 
 public sealed class Campaign
 {
-    private Campaign(CampaignTitle title, CampaignDescription description)
+    private Campaign(UserId creatorId, CampaignTitle title, CampaignDescription description)
     {
-        Id = new CampaignId(Ulid.NewUlid());
+        Id = new(Ulid.NewUlid());
+        CreatorId = creatorId;
         Title = title;
         Description = description;
     }
     
+    public UserId CreatorId { get; private set; }
     public CampaignId Id { get; private set; }
     public CampaignTitle Title { get; private set; }
     public CampaignDescription Description { get; private set; }
@@ -18,15 +21,20 @@ public sealed class Campaign
     private readonly HashSet<CampaignContact> _campaignContacts = [];
     public IReadOnlyCollection<CampaignContact> CampaignContacts => _campaignContacts;
     
-    public void AddContact(Contact contact)
+    public void AddContact(Contact contact, IQueryable<CampaignContact> existingContacts)
     {
-        var campaignContact = new CampaignContact(new CampaignContactId(Ulid.NewUlid()), Id, contact.Id);
+        if (existingContacts.Any(c => c.ContactId == contact.Id)) // questionable if this works
+        {
+            throw new("already exists");
+        }
+        
+        var campaignContact = CampaignContact.Create(this, contact);
 
         _campaignContacts.Add(campaignContact);
     }
 
-    public static Campaign Create(CampaignTitle title, CampaignDescription description)
+    internal static Campaign Create(User user, CampaignTitle title, CampaignDescription description)
     {
-        return new Campaign(title, description);
+        return new(user.Id, title, description);
     }
 }

@@ -8,12 +8,12 @@ public record PhoneNumber
     {
         if (phone.Length != PhoneNumberLength)
         {
-            throw new Exception($"length must be {PhoneNumberLength}");
+            throw new($"length must be {PhoneNumberLength}");
         }
 
         if (string.IsNullOrWhiteSpace(regionalPrefix))
         {
-            throw new Exception("must not be empty");
+            throw new("must not be empty");
         }
         
         Phone = phone;
@@ -23,6 +23,6 @@ public record PhoneNumber
     public string Phone { get; init; } 
     public string RegionalPrefix { get; init; }
 
-    public static PhoneNumber Create(string phone) => new PhoneNumber(phone, "0030");
-    public static PhoneNumber Create(string phone, string regionalPrefix) => new PhoneNumber(phone, regionalPrefix);
+    public static PhoneNumber Create(string phone) => new(phone, "0030");
+    public static PhoneNumber Create(string phone, string regionalPrefix) => new(phone, regionalPrefix);
 }

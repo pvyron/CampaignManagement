@@ -10,9 +10,9 @@ public record Email()
     {
         if (value.Length < 1) //email validation)
         {
-            throw new Exception("email invalid");
+            throw new("email invalid");
         }
         
-        return new Email(value);
+        return new(value);
     }
 }

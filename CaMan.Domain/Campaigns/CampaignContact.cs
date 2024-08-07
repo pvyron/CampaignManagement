@@ -4,9 +4,9 @@ namespace CaMan.Domain.Campaigns;
 
 public class CampaignContact
 {
-    internal CampaignContact(CampaignContactId id, CampaignId campaignId, ContactId contactId)
+    private CampaignContact(CampaignId campaignId, ContactId contactId)
     {
-        Id = id;
+        Id = new(Ulid.NewUlid());
         CampaignId = campaignId;
         ContactId = contactId;
     }
@@ -14,4 +14,9 @@ public class CampaignContact
     public CampaignContactId Id { get; private set; }
     public CampaignId CampaignId { get; private set; }
     public ContactId ContactId { get; private set; }
+
+    internal static CampaignContact Create(Campaign campaign, Contact contact)
+    {
+        return new(campaign.Id, contact.Id);
+    }
 }

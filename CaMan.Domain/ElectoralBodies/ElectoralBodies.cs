@@ -6,7 +6,7 @@ public abstract class ElectoralBody
 {
     internal ElectoralBody(ShortName shortName, FullName fullName)
     {
-        Id = new ElectoralBodyId(Ulid.NewUlid());
+        Id = new(Ulid.NewUlid());
         ShortName = shortName;
         FullName = fullName;
     }

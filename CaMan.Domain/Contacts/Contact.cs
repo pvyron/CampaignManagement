@@ -7,7 +7,7 @@ public sealed class Contact
 {
     private Contact(ShortName shortName, FirstName? firstName, LastName? lastName, Email? email, PhoneNumber? phoneNumber, ContactCommunicationMethod communicationMethod, ContactAgeGroup ageGroup)
     {
-        Id = new ContactId(Ulid.NewUlid());
+        Id = new(Ulid.NewUlid());
         ShortName = shortName;
         FirstName = firstName;
         LastName = lastName;
@@ -20,17 +20,17 @@ public sealed class Contact
         {
             case ContactCommunicationMethod.Phone:
                 if (string.IsNullOrWhiteSpace(phoneNumber?.Phone))
-                    throw new Exception("cant have empty phone");
+                    throw new("cant have empty phone");
                 break;
             case ContactCommunicationMethod.Email:
                 if (string.IsNullOrWhiteSpace(email?.Value))
-                    throw new Exception("cant have empty phone");
+                    throw new("cant have empty phone");
                 break;
             case ContactCommunicationMethod.Phone_And_Email:
                 if (string.IsNullOrWhiteSpace(email?.Value))
-                    throw new Exception("cant have empty phone");
+                    throw new("cant have empty phone");
                 if (string.IsNullOrWhiteSpace(phoneNumber?.Phone))
-                    throw new Exception("cant have empty phone");
+                    throw new("cant have empty phone");
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(communicationMethod), communicationMethod, null);
@@ -60,19 +60,19 @@ public sealed class Contact
 
     internal static Contact Create(ShortName shortName, PhoneNumber phoneNumber, FirstName? firstName = null, LastName? lastName = null, ContactAgeGroup ageGroup = ContactAgeGroup.Uknown)
     {
-        return new Contact(shortName, firstName, lastName, null, phoneNumber, ContactCommunicationMethod.Phone,
+        return new(shortName, firstName, lastName, null, phoneNumber, ContactCommunicationMethod.Phone,
             ageGroup);
     }
 
     internal static Contact Create(ShortName shortName, Email email, FirstName? firstName = null, LastName? lastName = null, ContactAgeGroup ageGroup = ContactAgeGroup.Uknown)
     {
-        return new Contact(shortName, firstName, lastName, email, null, ContactCommunicationMethod.Email,
+        return new(shortName, firstName, lastName, email, null, ContactCommunicationMethod.Email,
             ageGroup);
     }
 
     internal static Contact Create(ShortName shortName, PhoneNumber phoneNumber, Email email, FirstName? firstName = null, LastName? lastName = null, ContactAgeGroup ageGroup = ContactAgeGroup.Uknown)
     {
-        return new Contact(shortName, firstName, lastName, email, phoneNumber, ContactCommunicationMethod.Phone_And_Email,
+        return new(shortName, firstName, lastName, email, phoneNumber, ContactCommunicationMethod.Phone_And_Email,
             ageGroup);
     }
 }
