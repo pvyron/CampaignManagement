@@ -1,4 +1,6 @@
-﻿namespace CaMan.Domain.Shared;
+﻿using EmailValidation;
+
+namespace CaMan.Domain.Shared;
 
 public record Email
 {
@@ -8,11 +10,11 @@ public record Email
 
     public static Email Create(string value)
     {
-        if (value.Length < 1) //email validation)
+        if (!EmailValidator.TryValidate(value, true, false, out var error))
         {
-            throw new("email invalid");
+            throw new Exception(error!.Code.ToString());
         }
         
-        return new(value);
+        return new Email(value);
     }
 }
