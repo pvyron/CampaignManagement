@@ -5,6 +5,10 @@ namespace CaMan.Domain.Contacts;
 
 public sealed class Contact
 {
+    private Contact()
+    {
+        
+    }
     private Contact(ShortName shortName, FirstName? firstName, LastName? lastName, Email? email, PhoneNumber? phoneNumber, ContactCommunicationMethod communicationMethod, ContactAgeGroup ageGroup)
     {
         Id = new(Ulid.NewUlid());

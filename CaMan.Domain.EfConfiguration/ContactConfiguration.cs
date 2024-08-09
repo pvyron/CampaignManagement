@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CaMan.Domain.EfConfiguration;
 
-public class ContactConfiguration : IEntityTypeConfiguration<Contact>
+internal class ContactConfiguration : IEntityTypeConfiguration<Contact>
 {
     public void Configure(EntityTypeBuilder<Contact> builder)
     {
@@ -26,9 +26,11 @@ public class ContactConfiguration : IEntityTypeConfiguration<Contact>
         builder.Property(c => c.Email)
             .HasConversion(c => c == null ? null : c.Value, value => string.IsNullOrWhiteSpace(value) ? null : Email.Create(value));
 
-        builder.OwnsOne(c => c.PhoneNumber, phoneBuilder =>
-        {
-            phoneBuilder.Property(p => p.Phone).HasMaxLength(10);
-        });
+        builder.OwnsOne(c => c.PhoneNumber);
+
+        builder.HasOne(c => c.AdministrativeRegion);
+        builder.HasOne(c => c.RegionalUnit);
+        builder.HasOne(c => c.Municipality);
+        builder.HasOne(c => c.MunicipalUnit);
     }
 }

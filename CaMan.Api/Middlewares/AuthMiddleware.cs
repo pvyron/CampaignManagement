@@ -18,13 +18,10 @@ public class AuthMiddleware
         var emailHeader = context.Request.Headers["cMUser"].FirstOrDefault();
         var keyHeader = context.Request.Headers["cMKey"].FirstOrDefault();
 
-        if (string.IsNullOrEmpty(emailHeader) || string.IsNullOrEmpty(keyHeader))
+        if (!string.IsNullOrEmpty(emailHeader) && !string.IsNullOrEmpty(keyHeader))
         {
-            await ReturnUnauthorized(context);
-            return;
+            identityScope.Setup(emailHeader, keyHeader);
         }
-
-        identityScope.Setup(emailHeader, keyHeader);
 
         await _next(context);
     }

@@ -1,5 +1,6 @@
 using CaMan.Api.Services;
 using CaMan.Domain.Shared;
+using CaMan.Persistance;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CaMan.Api.Controllers;
@@ -33,11 +34,16 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpPost]
-    public IResult TestMe([FromBody] CreateUser userInfo)
+    public async Task<IResult> TestMe([FromBody] CreateUser userInfo, [FromServices] CaManDbContext dbContext)
     {
         var shortName = ShortName.Create(userInfo.shortName);
         var email = Email.Create(userInfo.email);
-        return Results.Ok(Domain.Users.User.Create(shortName, email));
+
+        var newUser = Domain.Users.User.Create(shortName, email);
+        dbContext.Users.Add(newUser);
+        await dbContext.SaveChangesAsync();
+        
+        return Results.Ok();
     }
 
     public record CreateUser(string shortName, string email);

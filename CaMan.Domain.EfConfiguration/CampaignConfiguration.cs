@@ -12,6 +12,9 @@ internal class CampaignConfiguration : IEntityTypeConfiguration<Campaign>
         
         builder.Property(c => c.Id)
             .HasConversion(p => p.Value.ToString(), value => new(Ulid.Parse(value)));
+
+        builder.Property(c => c.CreatorId)
+            .HasConversion(c => c.Value.ToString(), value => new(Ulid.Parse(value)));
         
         builder.Property(c => c.Title)
             .HasConversion(c => c.Value, value => CampaignTitle.Create(value));

@@ -7,12 +7,18 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="8.0.7" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\CaMan.Domain.EfConfiguration\CaMan.Domain.EfConfiguration.csproj" />
       <ProjectReference Include="..\CaMan.Domain\CaMan.Domain.csproj" />
+      <ProjectReference Include="..\CaMan.Persistance\CaMan.Persistance.csproj" />
     </ItemGroup>
 
 </Project>

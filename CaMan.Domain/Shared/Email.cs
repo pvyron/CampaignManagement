@@ -1,8 +1,8 @@
 ﻿namespace CaMan.Domain.Shared;
 
-public record Email()
+public record Email
 {
-    private Email(string value) : this() => Value = value;
+    private Email(string value) => Value = value;
     
     public string Value { get; }
 
