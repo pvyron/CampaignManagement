@@ -46,5 +46,5 @@ public class WeatherForecastController : ControllerBase
         return Results.Ok();
     }
 
-    public record CreateUser(string shortName, string email);
 }
+public record CreateUser(string shortName, string email);

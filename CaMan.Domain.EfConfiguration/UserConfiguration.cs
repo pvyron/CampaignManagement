@@ -20,6 +20,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.Email)
             .HasConversion(email => email.Value, value => Email.Create(value));
 
-        builder.HasOne(u => u.ContactInfo);
+        builder.HasOne(u => u.ContactInfo)
+            //.WithOne(c => c.User)
+            ;
     }
 }

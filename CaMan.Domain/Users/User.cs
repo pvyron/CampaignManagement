@@ -1,6 +1,5 @@
 ﻿using CaMan.Domain.Campaigns;
 using CaMan.Domain.Contacts;
-using CaMan.Domain.ElectoralBodies;
 using CaMan.Domain.Shared;
 
 namespace CaMan.Domain.Users;

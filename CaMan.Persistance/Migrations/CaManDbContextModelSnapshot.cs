@@ -35,7 +35,7 @@ namespace CaMan.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Campaign");
+                    b.ToTable("Campaigns");
                 });
 
             modelBuilder.Entity("CaMan.Domain.Campaigns.CampaignContact", b =>
@@ -55,7 +55,7 @@ namespace CaMan.Persistance.Migrations
 
                     b.HasIndex("CampaignId");
 
-                    b.ToTable("CampaignContact");
+                    b.ToTable("CampaignContacts");
                 });
 
             modelBuilder.Entity("CaMan.Domain.Contacts.Contact", b =>
@@ -104,7 +104,7 @@ namespace CaMan.Persistance.Migrations
 
                     b.HasIndex("RegionalUnitId");
 
-                    b.ToTable("Contact");
+                    b.ToTable("Contacts");
                 });
 
             modelBuilder.Entity("CaMan.Domain.ElectoralBodies.AdministrativeRegion", b =>
@@ -252,7 +252,7 @@ namespace CaMan.Persistance.Migrations
 
                             b1.HasKey("ContactId");
 
-                            b1.ToTable("Contact");
+                            b1.ToTable("Contacts");
 
                             b1.WithOwner()
                                 .HasForeignKey("ContactId");

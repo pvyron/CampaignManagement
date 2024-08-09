@@ -1,5 +1,4 @@
 ﻿using CaMan.Domain.Campaigns;
-using CaMan.Domain.Contacts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

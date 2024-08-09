@@ -3,7 +3,6 @@ using CaMan.Api.OpenApi;
 using CaMan.Api.Services;
 using CaMan.Persistance;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,4 +1,4 @@
-﻿using EmailValidation;
+﻿using System.Text.RegularExpressions;
 
 namespace CaMan.Domain.Shared;
 
@@ -10,11 +10,17 @@ public record Email
 
     public static Email Create(string value)
     {
-        if (!EmailValidator.TryValidate(value, true, false, out var error))
-        {
-            throw new Exception(error!.Code.ToString());
-        }
+        if (Validate(value)) return new Email(value);
         
-        return new Email(value);
+        throw new Exception("Email validation failed");
     }
+
+    private static readonly Regex EmailMatchingRegex = 
+        new("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", 
+        RegexOptions.Compiled | 
+            RegexOptions.IgnoreCase | 
+            RegexOptions.Singleline | 
+            RegexOptions.NonBacktracking);
+
+    static bool Validate(string value) => EmailMatchingRegex.IsMatch(value);
 }

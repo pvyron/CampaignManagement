@@ -24,7 +24,7 @@ namespace CaMan.Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Campaign",
+                name: "Campaigns",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
@@ -34,7 +34,7 @@ namespace CaMan.Persistance.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Campaign", x => x.Id);
+                    table.PrimaryKey("PK_Campaigns", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -77,7 +77,7 @@ namespace CaMan.Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CampaignContact",
+                name: "CampaignContacts",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
@@ -86,17 +86,17 @@ namespace CaMan.Persistance.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CampaignContact", x => x.Id);
+                    table.PrimaryKey("PK_CampaignContacts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CampaignContact_Campaign_CampaignId",
+                        name: "FK_CampaignContacts_Campaigns_CampaignId",
                         column: x => x.CampaignId,
-                        principalTable: "Campaign",
+                        principalTable: "Campaigns",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Contact",
+                name: "Contacts",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
@@ -115,24 +115,24 @@ namespace CaMan.Persistance.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Contact", x => x.Id);
+                    table.PrimaryKey("PK_Contacts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Contact_AdministrativeRegion_AdministrativeRegionId",
+                        name: "FK_Contacts_AdministrativeRegion_AdministrativeRegionId",
                         column: x => x.AdministrativeRegionId,
                         principalTable: "AdministrativeRegion",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Contact_MunicipalUnit_MunicipalUnitId",
+                        name: "FK_Contacts_MunicipalUnit_MunicipalUnitId",
                         column: x => x.MunicipalUnitId,
                         principalTable: "MunicipalUnit",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Contact_Municipality_MunicipalityId",
+                        name: "FK_Contacts_Municipality_MunicipalityId",
                         column: x => x.MunicipalityId,
                         principalTable: "Municipality",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Contact_RegionalUnit_RegionalUnitId",
+                        name: "FK_Contacts_RegionalUnit_RegionalUnitId",
                         column: x => x.RegionalUnitId,
                         principalTable: "RegionalUnit",
                         principalColumn: "Id");
@@ -151,35 +151,35 @@ namespace CaMan.Persistance.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Contact_ContactInfoId",
+                        name: "FK_Users_Contacts_ContactInfoId",
                         column: x => x.ContactInfoId,
-                        principalTable: "Contact",
+                        principalTable: "Contacts",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CampaignContact_CampaignId",
-                table: "CampaignContact",
+                name: "IX_CampaignContacts_CampaignId",
+                table: "CampaignContacts",
                 column: "CampaignId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contact_AdministrativeRegionId",
-                table: "Contact",
+                name: "IX_Contacts_AdministrativeRegionId",
+                table: "Contacts",
                 column: "AdministrativeRegionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contact_MunicipalityId",
-                table: "Contact",
+                name: "IX_Contacts_MunicipalityId",
+                table: "Contacts",
                 column: "MunicipalityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contact_MunicipalUnitId",
-                table: "Contact",
+                name: "IX_Contacts_MunicipalUnitId",
+                table: "Contacts",
                 column: "MunicipalUnitId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contact_RegionalUnitId",
-                table: "Contact",
+                name: "IX_Contacts_RegionalUnitId",
+                table: "Contacts",
                 column: "RegionalUnitId");
 
             migrationBuilder.CreateIndex(
@@ -192,16 +192,16 @@ namespace CaMan.Persistance.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CampaignContact");
+                name: "CampaignContacts");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Campaign");
+                name: "Campaigns");
 
             migrationBuilder.DropTable(
-                name: "Contact");
+                name: "Contacts");
 
             migrationBuilder.DropTable(
                 name: "AdministrativeRegion");
