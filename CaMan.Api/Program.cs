@@ -1,4 +1,4 @@
-using CaMan.Api.Middlewares;
+﻿using CaMan.Api.Middlewares;
 using CaMan.Api.OpenApi;
 using CaMan.Api.Services;
 using CaMan.Persistance;
@@ -42,3 +42,9 @@ app.UseMiddleware<AuthMiddleware>();
 app.MapControllers();
 
 app.Run();
+
+
+// Testing reference point
+public partial class Program
+{
+};
