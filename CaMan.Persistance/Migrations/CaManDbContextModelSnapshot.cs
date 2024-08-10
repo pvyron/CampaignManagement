@@ -2,6 +2,7 @@
 using CaMan.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -14,24 +15,28 @@ namespace CaMan.Persistance.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.7");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "8.0.7")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
             modelBuilder.Entity("CaMan.Domain.Campaigns.Campaign", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("CreatorId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -41,15 +46,15 @@ namespace CaMan.Persistance.Migrations
             modelBuilder.Entity("CaMan.Domain.Campaigns.CampaignContact", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("CampaignId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ContactId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -61,38 +66,38 @@ namespace CaMan.Persistance.Migrations
             modelBuilder.Entity("CaMan.Domain.Contacts.Contact", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<byte[]>("AdministrativeRegionId")
-                        .HasColumnType("BLOB");
+                        .HasColumnType("varbinary(3072)");
 
                     b.Property<int>("AgeGroup")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("CommunicationMethod")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<byte[]>("MunicipalUnitId")
-                        .HasColumnType("BLOB");
+                        .HasColumnType("varbinary(3072)");
 
                     b.Property<byte[]>("MunicipalityId")
-                        .HasColumnType("BLOB");
+                        .HasColumnType("varbinary(3072)");
 
                     b.Property<byte[]>("RegionalUnitId")
-                        .HasColumnType("BLOB");
+                        .HasColumnType("varbinary(3072)");
 
                     b.Property<string>("ShortName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -110,17 +115,17 @@ namespace CaMan.Persistance.Migrations
             modelBuilder.Entity("CaMan.Domain.ElectoralBodies.AdministrativeRegion", b =>
                 {
                     b.Property<byte[]>("Id")
-                        .HasColumnType("BLOB");
+                        .HasColumnType("varbinary(3072)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("ShortName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
@@ -130,17 +135,17 @@ namespace CaMan.Persistance.Migrations
             modelBuilder.Entity("CaMan.Domain.ElectoralBodies.MunicipalUnit", b =>
                 {
                     b.Property<byte[]>("Id")
-                        .HasColumnType("BLOB");
+                        .HasColumnType("varbinary(3072)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("ShortName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
@@ -150,17 +155,17 @@ namespace CaMan.Persistance.Migrations
             modelBuilder.Entity("CaMan.Domain.ElectoralBodies.Municipality", b =>
                 {
                     b.Property<byte[]>("Id")
-                        .HasColumnType("BLOB");
+                        .HasColumnType("varbinary(3072)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("ShortName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
@@ -170,17 +175,17 @@ namespace CaMan.Persistance.Migrations
             modelBuilder.Entity("CaMan.Domain.ElectoralBodies.RegionalUnit", b =>
                 {
                     b.Property<byte[]>("Id")
-                        .HasColumnType("BLOB");
+                        .HasColumnType("varbinary(3072)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("ShortName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
@@ -190,18 +195,18 @@ namespace CaMan.Persistance.Migrations
             modelBuilder.Entity("CaMan.Domain.Users.User", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ContactInfoId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ShortName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -240,15 +245,15 @@ namespace CaMan.Persistance.Migrations
                     b.OwnsOne("CaMan.Domain.Shared.PhoneNumber", "PhoneNumber", b1 =>
                         {
                             b1.Property<string>("ContactId")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("varchar(255)");
 
                             b1.Property<string>("Phone")
                                 .IsRequired()
-                                .HasColumnType("TEXT");
+                                .HasColumnType("longtext");
 
                             b1.Property<string>("RegionalPrefix")
                                 .IsRequired()
-                                .HasColumnType("TEXT");
+                                .HasColumnType("longtext");
 
                             b1.HasKey("ContactId");
 

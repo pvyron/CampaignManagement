@@ -10,34 +10,41 @@ namespace CaMan.IntegrationTests;
 
 public class IntegrationTestApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
-    //private readonly MySqlContainer _dbContainer = new MySqlContainer(new MySqlConfiguration("test", "test", "test"));
-    
+    private readonly MySqlContainer 
+        _dbContainer = new MySqlBuilder()
+            .WithImage("mysql:8.0")
+            .Build();
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.ConfigureTestServices(services =>
         {
-            // var dbDescriptor = services
-            //     .SingleOrDefault(s => s.ServiceType == typeof(DbContextOptions<CaManDbContext>));
-            //
-            // if (dbDescriptor is not null)
-            // {
-            //     services.Remove(dbDescriptor);
-            // }
-            //
-            // services.AddDbContext<CaManDbContext>(optionsBuilder =>
-            // {
-            //     optionsBuilder.UseSqlite(_dbContainer.GetConnectionString());
-            // });
+            var dbDescriptor = services
+                .SingleOrDefault(s => s.ServiceType == typeof(DbContextOptions<CaManDbContext>));
+
+            if (dbDescriptor is not null)
+            {
+                services.Remove(dbDescriptor);
+            }
+
+            services.AddDbContext<CaManDbContext>(optionsBuilder =>
+            {
+                var serverVersion = new MySqlServerVersion(new Version(8, 0, 36));
+                optionsBuilder.UseMySql(_dbContainer.GetConnectionString(), serverVersion);
+            });
         });
     }
 
-    public Task InitializeAsync()
+    public async Task InitializeAsync()
     {
-        return Task.CompletedTask;// _dbContainer.StartAsync();
+        await _dbContainer.StartAsync();
+        using var scope = Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<CaManDbContext>();
+        await dbContext.Database.MigrateAsync();
     }
 
     public new Task DisposeAsync()
     {
-        return Task.CompletedTask;// _dbContainer.StopAsync();
+        return _dbContainer.StopAsync();
     }
 }

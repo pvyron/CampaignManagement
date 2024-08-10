@@ -10,7 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<CaManDbContext>((services, optionsBuilder) =>
 {
-    optionsBuilder.UseSqlite(builder.Configuration.GetConnectionString("SqlDb"));
+    var serverVersion = new MySqlServerVersion(new Version(8, 0, 36));
+    optionsBuilder.UseMySql(builder.Configuration.GetConnectionString("SqlDb"), serverVersion);
 });
 
 builder.Services.AddControllers();

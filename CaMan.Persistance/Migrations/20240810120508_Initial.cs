@@ -10,79 +10,102 @@ namespace CaMan.Persistance.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateTable(
                 name: "AdministrativeRegion",
                 columns: table => new
                 {
-                    Id = table.Column<byte[]>(type: "BLOB", nullable: false),
-                    ShortName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    FullName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false)
+                    Id = table.Column<byte[]>(type: "varbinary(3072)", nullable: false),
+                    ShortName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    FullName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AdministrativeRegion", x => x.Id);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Campaigns",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    CreatorId = table.Column<string>(type: "TEXT", nullable: false),
-                    Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatorId = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Title = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Description = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Campaigns", x => x.Id);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Municipality",
                 columns: table => new
                 {
-                    Id = table.Column<byte[]>(type: "BLOB", nullable: false),
-                    ShortName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    FullName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false)
+                    Id = table.Column<byte[]>(type: "varbinary(3072)", nullable: false),
+                    ShortName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    FullName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Municipality", x => x.Id);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "MunicipalUnit",
                 columns: table => new
                 {
-                    Id = table.Column<byte[]>(type: "BLOB", nullable: false),
-                    ShortName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    FullName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false)
+                    Id = table.Column<byte[]>(type: "varbinary(3072)", nullable: false),
+                    ShortName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    FullName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MunicipalUnit", x => x.Id);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "RegionalUnit",
                 columns: table => new
                 {
-                    Id = table.Column<byte[]>(type: "BLOB", nullable: false),
-                    ShortName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    FullName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false)
+                    Id = table.Column<byte[]>(type: "varbinary(3072)", nullable: false),
+                    ShortName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    FullName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RegionalUnit", x => x.Id);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "CampaignContacts",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    CampaignId = table.Column<string>(type: "TEXT", nullable: false),
-                    ContactId = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CampaignId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ContactId = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
@@ -93,25 +116,33 @@ namespace CaMan.Persistance.Migrations
                         principalTable: "Campaigns",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Contacts",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    ShortName = table.Column<string>(type: "TEXT", nullable: false),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
-                    LastName = table.Column<string>(type: "TEXT", nullable: true),
-                    Email = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumber_Phone = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumber_RegionalPrefix = table.Column<string>(type: "TEXT", nullable: true),
-                    CommunicationMethod = table.Column<int>(type: "INTEGER", nullable: false),
-                    AgeGroup = table.Column<int>(type: "INTEGER", nullable: false),
-                    AdministrativeRegionId = table.Column<byte[]>(type: "BLOB", nullable: true),
-                    RegionalUnitId = table.Column<byte[]>(type: "BLOB", nullable: true),
-                    MunicipalityId = table.Column<byte[]>(type: "BLOB", nullable: true),
-                    MunicipalUnitId = table.Column<byte[]>(type: "BLOB", nullable: true)
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ShortName = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    FirstName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    LastName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Email = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PhoneNumber_Phone = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PhoneNumber_RegionalPrefix = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CommunicationMethod = table.Column<int>(type: "int", nullable: false),
+                    AgeGroup = table.Column<int>(type: "int", nullable: false),
+                    AdministrativeRegionId = table.Column<byte[]>(type: "varbinary(3072)", nullable: true),
+                    RegionalUnitId = table.Column<byte[]>(type: "varbinary(3072)", nullable: true),
+                    MunicipalityId = table.Column<byte[]>(type: "varbinary(3072)", nullable: true),
+                    MunicipalUnitId = table.Column<byte[]>(type: "varbinary(3072)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -136,16 +167,21 @@ namespace CaMan.Persistance.Migrations
                         column: x => x.RegionalUnitId,
                         principalTable: "RegionalUnit",
                         principalColumn: "Id");
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    ShortName = table.Column<string>(type: "TEXT", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: false),
-                    ContactInfoId = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ShortName = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Email = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ContactInfoId = table.Column<string>(type: "varchar(255)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
@@ -155,7 +191,8 @@ namespace CaMan.Persistance.Migrations
                         column: x => x.ContactInfoId,
                         principalTable: "Contacts",
                         principalColumn: "Id");
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CampaignContacts_CampaignId",

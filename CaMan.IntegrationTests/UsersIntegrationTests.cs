@@ -1,15 +1,18 @@
 ﻿using System.Net.Http.Json;
 using CaMan.Api.Controllers;
-using CaMan.Domain.Shared;
 using CaMan.Domain.Users;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace CaMan.IntegrationTests;
 
 public class UsersIntegrationTests : BaseIntegrationTest
 {
+    private readonly ILogger<UsersIntegrationTests> _logger;
     public UsersIntegrationTests(IntegrationTestApiFactory apiFactory) : base(apiFactory)
     {
+        _logger = _apiScope.ServiceProvider.GetRequiredService<ILogger<UsersIntegrationTests>>();
     }
 
     [Fact]
@@ -20,6 +23,8 @@ public class UsersIntegrationTests : BaseIntegrationTest
 
         // Act
         var httpResult = await _apiClient.PostAsJsonAsync("/api/Users", createUser);
+
+        var resultAsString = await httpResult.Content.ReadAsStringAsync();
         var createdUser = await httpResult.Content.ReadFromJsonAsync<CreatedTestUser>();
 
         //Assert
