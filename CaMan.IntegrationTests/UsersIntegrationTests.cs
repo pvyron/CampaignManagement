@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.Net;
+using System.Net.Http.Json;
 using CaMan.Api.Controllers;
 using CaMan.Domain.Users;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,28 @@ public class UsersIntegrationTests : BaseIntegrationTest
         Assert.NotNull(dbUser);
         Assert.Equal(createdUser.ShortName.Value, dbUser.ShortName.Value);
         Assert.Equal(createdUser.Email.Value, dbUser.Email.Value);
+    }
+
+    [Theory]
+    [InlineData(["testtest.com"])]
+    [InlineData(["test.com@test"])]
+    [InlineData(["noTest-yahoo.ln"])]
+    public async Task Create_ShouldFailToAdd_NewUser_InvalidEmail(string invalidEmail)
+    {
+        // Arrange
+        var createUser = new CreateUser("test", invalidEmail);
+
+        // Act
+        var existingUsers = await _apiDbContext.Users.CountAsync();
+        
+        var httpResult = await _apiClient.PostAsJsonAsync("/api/Users", createUser);
+
+        var newUsers = await _apiDbContext.Users.CountAsync();
+        
+        //Assert
+        Assert.False(httpResult.IsSuccessStatusCode);
+        
+        Assert.Equal(existingUsers, newUsers);
     }
 
     private record CreatedTestUser(UserId Id, GenericStringValueType ShortName, GenericStringValueType Email);
