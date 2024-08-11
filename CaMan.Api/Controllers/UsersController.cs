@@ -21,12 +21,7 @@ public class UsersController : ControllerBase
             .Take(size)
             .ToListAsync();
 
-        return users.Count switch
-        {
-            0 => NotFound(),
-            1 => Ok(users[0]),
-            _ => Ok(users)
-        };
+        return Ok(users);
     }
 
     // GET api/<UsersController>/5
