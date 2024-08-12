@@ -10,33 +10,30 @@ namespace CaMan.Api.Controllers;
 [ApiController]
 public class UsersController : ControllerBase
 {
-    // GET: api/<UsersController>
     [HttpGet]
-    public async Task<IActionResult> Get([FromServices] CaManDbContext dbContext,
-        [FromQuery(Name = "size")] int size = 10)
+    public async Task<IActionResult> Get([FromServices] CaManDbContext dbContext, CancellationToken cancellationToken, [FromQuery(Name = "size")] int size = 10)
     {
         var users = await dbContext.Users
             .Include(u => u.ContactInfo)
             .AsNoTracking()
             .Take(size)
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
 
         return Ok(users);
     }
 
-    // GET api/<UsersController>/5
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get([FromRoute] string id, [FromServices] CaManDbContext dbContext)
+    public async Task<IActionResult> Get([FromRoute] string id, [FromServices] CaManDbContext dbContext, CancellationToken cancellationToken)
     {
         if (!Ulid.TryParse(id, out var ulId))
         {
             return BadRequest();
         }
-            
+        
         var user = await dbContext.Users
             .Include(u => u.ContactInfo)
             .AsNoTracking()
-            .FirstOrDefaultAsync(u => u.Id == new UserId(ulId));
+            .FirstOrDefaultAsync(u => u.Id == new UserId(ulId), cancellationToken);
 
         if (user is null)
         {
@@ -46,27 +43,24 @@ public class UsersController : ControllerBase
         return Ok(user);
     }
 
-    // POST api/<UsersController>
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] CreateUser createUser, [FromServices] CaManDbContext dbContext)
+    public async Task<IActionResult> Post([FromBody] CreateUser createUser, [FromServices] CaManDbContext dbContext, CancellationToken cancellationToken)
     {
         var shortName = ShortName.Create(createUser.shortName);
         var email = Email.Create(createUser.email);
 
         var newUser = CaMan.Domain.Users.User.Create(shortName, email);
         dbContext.Users.Add(newUser);
-        await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync(cancellationToken);
 
         return Ok(newUser);
     }
 
-    // PUT api/<UsersController>/5
     [HttpPut("{id}")]
     public void Put(int id, [FromBody] string value)
     {
     }
 
-    // DELETE api/<UsersController>/5
     [HttpDelete("{id}")]
     public void Delete(int id)
     {

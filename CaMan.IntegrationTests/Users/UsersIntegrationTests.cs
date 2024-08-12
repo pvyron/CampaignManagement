@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Json;
 using CaMan.Api.Controllers;
+using CaMan.Domain.Shared;
 using CaMan.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -91,6 +92,28 @@ public class UsersIntegrationTests : BaseIntegrationTest
         Assert.Equal(Math.Min(usersToCreate, usersToFetch), fetchedUsers.Length);
     }
 
+    [Fact]
+    public async Task Fetch_ShouldReturn_ExistingUser_FromDatabase()
+    {
+        // Arrange
+        var existingUsers = await UserHelperMethods.CreateRandomUsers(_apiClient, Random.Shared.Next(4, 8));
+        
+        foreach (var existingUser in existingUsers)
+        {
+            // Act
+            var httpResponse = await _apiClient.GetAsync($"/api/Users/{existingUser.Id.Value}");
+        
+            // Assert
+            Assert.True(httpResponse.IsSuccessStatusCode);
+
+            var fetchedUser = await httpResponse.Content.ReadFromJsonAsync<CreatedTestUser>();
+
+            Assert.NotNull(fetchedUser);
+            Assert.Equal(existingUser.Id, fetchedUser.Id);
+            Assert.Equal(existingUser.ShortName.Value, fetchedUser.ShortName.Value);
+            Assert.Equal(existingUser.Email.Value, fetchedUser.Email.Value);
+        }
+    }
 }
 
 public record CreatedTestUser(UserId Id, GenericStringValueType ShortName, GenericStringValueType Email);
