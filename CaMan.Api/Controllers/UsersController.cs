@@ -57,12 +57,62 @@ public class UsersController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
+    public async Task<IActionResult> Put([FromRoute] string id, [FromBody] UpdateUser updateUser, [FromServices] CaManDbContext dbContext, CancellationToken cancellationToken)
     {
+        if (!Ulid.TryParse(id, out var ulId))
+        {
+            return BadRequest();
+        }
+        
+        var existingUser = await dbContext.Users
+            .Include(u => u.ContactInfo)
+            .FirstOrDefaultAsync(u => u.Id == new UserId(ulId), cancellationToken);
+
+        if (existingUser is null)
+        {
+            return NotFound();
+        }
+
+        if (!string.IsNullOrWhiteSpace(updateUser.shortName))
+        {
+            var newShortName = ShortName.Create(updateUser.shortName);
+
+            existingUser.UpdateShortName(newShortName);
+        }
+
+        if (!string.IsNullOrWhiteSpace(updateUser.email))
+        {
+            var newEmail = Email.Create(updateUser.email);
+
+            existingUser.UpdateEmail(newEmail);
+        }
+
+        await dbContext.SaveChangesAsync(cancellationToken);
+
+        return Ok(existingUser);
     }
 
     [HttpDelete("{id}")]
-    public void Delete(int id)
+    public async Task<IActionResult> Delete([FromRoute] string id, [FromServices] CaManDbContext dbContext, CancellationToken cancellationToken)
     {
+        if (!Ulid.TryParse(id, out var ulId))
+        {
+            return BadRequest();
+        }
+        
+        var existingUser = await dbContext.Users
+            .Include(u => u.ContactInfo)
+            .FirstOrDefaultAsync(u => u.Id == new UserId(ulId), cancellationToken);
+
+        if (existingUser is null)
+        {
+            return NotFound();
+        }
+
+        dbContext.Users.Remove(existingUser);
+
+        await dbContext.SaveChangesAsync(cancellationToken);
+
+        return Ok();
     }
 }

@@ -24,6 +24,16 @@ public sealed class User
         ContactInfo = Contact.Create(ShortName, Email);
     }
 
+    public void UpdateShortName(ShortName shortName)
+    {
+        ShortName = shortName;
+    }
+
+    public void UpdateEmail(Email email)
+    {
+        Email = email;
+    }
+
     public Campaign CreateNewCampaign(CampaignTitle title, CampaignDescription description)
     {
         return Campaign.Create(this, title, description);
