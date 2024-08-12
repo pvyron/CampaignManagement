@@ -1,5 +1,4 @@
 ﻿using CaMan.Persistance;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CaMan.IntegrationTests;

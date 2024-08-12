@@ -1,7 +1,7 @@
-﻿using System.Net.Http.Json;
-using CaMan.Api.Controllers;
-using CaMan.Domain.Shared;
+﻿using System.Net;
+using System.Net.Http.Json;
 using CaMan.Domain.Users;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -112,6 +112,22 @@ public class UsersIntegrationTests : BaseIntegrationTest
             Assert.Equal(existingUser.Id, fetchedUser.Id);
             Assert.Equal(existingUser.ShortName.Value, fetchedUser.ShortName.Value);
             Assert.Equal(existingUser.Email.Value, fetchedUser.Email.Value);
+        }
+    }
+    [Fact]
+    public async Task Fetch_ShouldFailToReturn_NonExistingUser_FromDatabase()
+    {
+        // Arrange
+        var existingUsers = await UserHelperMethods.CreateRandomUsers(_apiClient, Random.Shared.Next(4, 8));
+
+        for (int e = 0; e < existingUsers.Length; e++)
+        {
+            // Act
+            var httpResponse = await _apiClient.GetAsync($"/api/Users/{Ulid.NewUlid()}");
+        
+            // Assert
+            Assert.False(httpResponse.IsSuccessStatusCode);
+            Assert.Equal(HttpStatusCode.NotFound, httpResponse.StatusCode);
         }
     }
 }

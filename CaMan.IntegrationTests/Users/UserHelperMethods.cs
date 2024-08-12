@@ -1,7 +1,6 @@
 ﻿using System.Net.Http.Json;
 using Bogus;
 using CaMan.Api.Controllers;
-using CaMan.Domain.Users;
 
 namespace CaMan.IntegrationTests.Users;
 
