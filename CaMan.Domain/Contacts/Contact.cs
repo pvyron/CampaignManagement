@@ -5,7 +5,10 @@ namespace CaMan.Domain.Contacts;
 
 public sealed class Contact
 {
+#pragma warning disable CS8618 // Only to be used with EFCore
+    [Obsolete("Only for EFCore")]
     private Contact()
+#pragma warning restore CS8618 // Only to be used with EFCore
     {
         
     }
