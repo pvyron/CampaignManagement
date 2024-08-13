@@ -11,53 +11,43 @@ namespace CaMan.IntegrationTests.Users;
 
 public static class UserHelperMethods
 {
-    public static Task<HttpResponseMessage> TryCreateUser(HttpClient apiClient, string shortName, string email)
+    private static User AddUserInDbCollectionInternal(CaManDbContext dbContext, string shortName, string email)
     {
-        var createUser = new CreateUser(shortName, email);
+        var createdUser = User.Create(ShortName.Create(shortName), Email.Create(email));
         
-        return apiClient.PostAsJsonAsync("/api/Users", createUser);
-    }
-    public static EntityEntry<User> TryCreateUserInDb(CaManDbContext dbContext, string shortName, string email)
-    {
-        var createUser = new CreateUser(shortName, email);
-        
-        return dbContext.Users.Add(User.Create(ShortName.Create(shortName), Email.Create(email)));
+        dbContext.Users.Add(createdUser);
+
+        return createdUser;
     }
     
-    public static Task<HttpResponseMessage> TryCreateRandomUser(HttpClient apiClient)
+    public static async Task<User> CreateUserInDb(CaManDbContext dbContext, string shortName, string email)
     {
-        return TryCreateUser(apiClient, "test", new Faker().Internet.Email());
-    }
+        var createdUser = AddUserInDbCollectionInternal(dbContext, shortName, email);
 
-    public static async Task<CreatedTestUser[]> CreateRandomUsers(HttpClient apiClient, int count = 10)
+        await dbContext.SaveChangesAsync();
+
+        return createdUser;
+    }
+    
+    public static async Task<User> CreateRandomUserInDb(CaManDbContext dbContext)
     {
-        var createdUsers = new CreatedTestUser[count];
-        
-        for (int i = 0; i < count; i++)
-        {
-            var httpResponse = await TryCreateUser(apiClient, $"test_{i}", new Faker().Internet.Email());
+        var createdUser = AddUserInDbCollectionInternal(dbContext, $"test_{Ulid.NewUlid()}", new Faker().Internet.Email());
 
-            Assert.True(httpResponse.IsSuccessStatusCode);
-            
-            createdUsers[i] = (await httpResponse.Content.ReadFromJsonAsync<CreatedTestUser>())!;
-        }
+        await dbContext.SaveChangesAsync();
 
-        return createdUsers;
+        return createdUser;
     }
-
+    
     public static async Task<User[]> CreateRandomUsersInDb(CaManDbContext dbContext, int count = 10)
     {
         var createdUsers = new User[count];
-        
         for (int i = 0; i < count; i++)
         {
-            var createdUser = TryCreateUserInDb(dbContext, $"test_{i}", new Faker().Internet.Email());
-
-            createdUsers[i] = createdUser.Entity;
+            createdUsers[i] = AddUserInDbCollectionInternal(dbContext, $"test_{i}", new Faker().Internet.Email());
         }
-
-        var savedEntities = await dbContext.SaveChangesAsync();
         
+        await dbContext.SaveChangesAsync();
+
         return createdUsers;
     }
 }

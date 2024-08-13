@@ -22,7 +22,7 @@ public class RetrieveIntegrationTests : BaseIntegrationTest
     [InlineData([7, 7])]
     [InlineData([1, 0])]
     [InlineData([0, 1])]
-    public async Task Fetch_ShouldReturn_SpecificCount_CreatedUsers_FromDatabase(int usersToCreate, int usersToFetch)
+    public async Task Retrieve_ShouldReturn_SpecificCount_CreatedUsers_FromDatabase(int usersToCreate, int usersToFetch)
     {
         // Arrange
         await _apiDbContext.Users.AsQueryable().ExecuteDeleteAsync();
@@ -44,10 +44,10 @@ public class RetrieveIntegrationTests : BaseIntegrationTest
     }
 
     [Fact]
-    public async Task Fetch_ShouldReturn_ExistingUser_FromDatabase()
+    public async Task Retrieve_ShouldReturn_ExistingUser_FromDatabase()
     {
         // Arrange
-        var existingUsers = await UserHelperMethods.CreateRandomUsersInDb(_apiDbContext, Random.Shared.Next(4, 8));
+        var existingUsers = await UserHelperMethods.CreateRandomUsersInDb(_apiDbContext, Random.Shared.Next(5, 15));
         
         foreach (var existingUser in existingUsers)
         {
@@ -67,10 +67,10 @@ public class RetrieveIntegrationTests : BaseIntegrationTest
     }
     
     [Fact]
-    public async Task Fetch_ShouldFailToReturn_NonExistingUser_FromDatabase()
+    public async Task Retrieve_ShouldFailToReturn_NonExistingUser()
     {
         // Arrange
-        var existingUsers = await UserHelperMethods.CreateRandomUsersInDb(_apiDbContext, Random.Shared.Next(4, 8));
+        var existingUsers = await UserHelperMethods.CreateRandomUsersInDb(_apiDbContext, Random.Shared.Next(5, 15));
 
         for (int e = 0; e < existingUsers.Length; e++)
         {
@@ -84,7 +84,7 @@ public class RetrieveIntegrationTests : BaseIntegrationTest
     }
     
     [Fact]
-    public async Task Fetch_ShouldFail_TryingToFetch_InvalidIdFormat()
+    public async Task Retrieve_ShouldFail_InvalidIdFormat()
     {
         // Arrange
         var existingUsers = await UserHelperMethods.CreateRandomUsersInDb(_apiDbContext, Random.Shared.Next(4, 8));

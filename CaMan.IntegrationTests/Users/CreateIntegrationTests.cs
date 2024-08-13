@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using CaMan.Api.Controllers;
 using CaMan.IntegrationTests.Users.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,16 +23,17 @@ public class CreateIntegrationTests : BaseIntegrationTest
         var shortName = "test";
         var email = "test@test.com";
 
+        var createUser = new CreateUser(shortName, email);
+
         // Act
-        var httpResponse = await UserHelperMethods.TryCreateUser(_apiClient, shortName, email);
+        var httpResponse = await _apiClient.PostAsJsonAsync("/api/Users", createUser);
 
         Assert.True(httpResponse.IsSuccessStatusCode);
         
         var createdUser = await httpResponse.Content.ReadFromJsonAsync<CreatedTestUser>();
 
         //Assert
-        var createdId = Assert.NotNull(createdUser?.Id?.Value);
-
+        Assert.NotNull(createdUser);
         Assert.Equal(shortName, createdUser.ShortName.Value);
         Assert.Equal(email, createdUser.Email.Value);
 
@@ -51,10 +53,12 @@ public class CreateIntegrationTests : BaseIntegrationTest
         // Arrange
         var shortName = "test";
 
+        var createUser = new CreateUser(shortName, invalidEmail);
+        
         // Act
         var existingUsers = await _apiDbContext.Users.CountAsync();
 
-        var httpResponse = await UserHelperMethods.TryCreateUser(_apiClient, shortName, invalidEmail);
+        var httpResponse = await _apiClient.PostAsJsonAsync("/api/Users", createUser);
 
         var newUsers = await _apiDbContext.Users.CountAsync();
         
