@@ -101,7 +101,6 @@ public class UsersController : ControllerBase
         }
         
         var existingUser = await dbContext.Users
-            .Include(u => u.ContactInfo)
             .FirstOrDefaultAsync(u => u.Id == new UserId(ulId), cancellationToken);
 
         if (existingUser is null)
