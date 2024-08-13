@@ -1,11 +1,7 @@
-﻿using System.Net.Http.Json;
-using Bogus;
-using CaMan.Api.Controllers;
+﻿using Bogus;
 using CaMan.Domain.Shared;
 using CaMan.Domain.Users;
-using CaMan.IntegrationTests.Users.Models;
 using CaMan.Persistence;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace CaMan.IntegrationTests.Users;
 

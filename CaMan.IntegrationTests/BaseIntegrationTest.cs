@@ -1,5 +1,6 @@
 ﻿using CaMan.Persistence;
 using Microsoft.Extensions.DependencyInjection;
+using Xunit.Abstractions;
 
 namespace CaMan.IntegrationTests;
 
@@ -9,7 +10,7 @@ public abstract class BaseIntegrationTest : IClassFixture<IntegrationTestApiFact
     protected readonly CaManDbContext _apiDbContext;
     protected readonly IServiceScope _apiScope;
     
-    protected BaseIntegrationTest(IntegrationTestApiFactory apiFactory)
+    protected BaseIntegrationTest(IntegrationTestApiFactory apiFactory, ITestOutputHelper output)
     {
         _apiClient = apiFactory.Server.CreateClient();
         _apiScope = apiFactory.Services.CreateScope();

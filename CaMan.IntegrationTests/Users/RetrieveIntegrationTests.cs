@@ -2,18 +2,14 @@
 using System.Net.Http.Json;
 using CaMan.IntegrationTests.Users.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Xunit.Abstractions;
 
 namespace CaMan.IntegrationTests.Users;
 
 public class RetrieveIntegrationTests : BaseIntegrationTest
 {
-    private readonly ILogger<RetrieveIntegrationTests> _logger;
-    
-    public RetrieveIntegrationTests(IntegrationTestApiFactory apiFactory) : base(apiFactory)
+    public RetrieveIntegrationTests(IntegrationTestApiFactory apiFactory, ITestOutputHelper output) : base(apiFactory, output)
     {
-        _logger = _apiScope.ServiceProvider.GetRequiredService<ILogger<RetrieveIntegrationTests>>();
     }
     
     [Theory]
