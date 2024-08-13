@@ -4,7 +4,7 @@ using CaMan.Domain.EfConfiguration;
 using CaMan.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 
-namespace CaMan.Persistance;
+namespace CaMan.Persistence;
 
 public sealed class CaManDbContext : DbContext
 {

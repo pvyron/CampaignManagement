@@ -1,6 +1,6 @@
 using CaMan.Domain.Shared;
 using CaMan.Domain.Users;
-using CaMan.Persistance;
+using CaMan.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

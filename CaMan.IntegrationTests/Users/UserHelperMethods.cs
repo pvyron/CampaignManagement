@@ -4,7 +4,7 @@ using CaMan.Api.Controllers;
 using CaMan.Domain.Shared;
 using CaMan.Domain.Users;
 using CaMan.IntegrationTests.Users.Models;
-using CaMan.Persistance;
+using CaMan.Persistence;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace CaMan.IntegrationTests.Users;

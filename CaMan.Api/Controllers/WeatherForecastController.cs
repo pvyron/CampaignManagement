@@ -1,6 +1,6 @@
 using CaMan.Api.Services;
 using CaMan.Domain.Shared;
-using CaMan.Persistance;
+using CaMan.Persistence;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CaMan.Api.Controllers;

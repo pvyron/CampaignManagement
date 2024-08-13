@@ -20,7 +20,7 @@
     <ItemGroup>
       <ProjectReference Include="..\CaMan.Domain.EfConfiguration\CaMan.Domain.EfConfiguration.csproj" />
       <ProjectReference Include="..\CaMan.Domain\CaMan.Domain.csproj" />
-      <ProjectReference Include="..\CaMan.Persistance\CaMan.Persistance.csproj" />
+      <ProjectReference Include="..\CaMan.Persistence\CaMan.Persistence.csproj" />
     </ItemGroup>
 
 </Project>

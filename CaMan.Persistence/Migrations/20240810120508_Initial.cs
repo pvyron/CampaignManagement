@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace CaMan.Persistance.Migrations
+namespace CaMan.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration

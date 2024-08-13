@@ -1,4 +1,4 @@
-﻿using CaMan.Persistance;
+﻿using CaMan.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CaMan.IntegrationTests;

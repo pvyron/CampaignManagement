@@ -1,7 +1,7 @@
 ﻿using CaMan.Api.Middlewares;
 using CaMan.Api.OpenApi;
 using CaMan.Api.Services;
-using CaMan.Persistance;
+using CaMan.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

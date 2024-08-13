@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaMan.Domain.EfConfiguratio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaMan.Api", "CaMan.Api\CaMan.Api.csproj", "{694DD0E5-25B2-428E-8648-C14CB300403B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaMan.Persistance", "CaMan.Persistance\CaMan.Persistance.csproj", "{504ED871-CC55-49B8-95DA-3B4808E7A591}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaMan.Persistence", "CaMan.Persistence\CaMan.Persistence.csproj", "{504ED871-CC55-49B8-95DA-3B4808E7A591}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaMan.IntegrationTests", "CaMan.IntegrationTests\CaMan.IntegrationTests.csproj", "{063B329A-20CA-479C-ACAB-CCD2559C90C1}"
 EndProject
