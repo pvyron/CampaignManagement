@@ -16,7 +16,7 @@ public class UpdateIntegrationTests : BaseIntegrationTest
         _logger = _apiScope.ServiceProvider.GetRequiredService<ILogger<UpdateIntegrationTests>>();
     }
     
-    [Fact(Skip="db context fetch is unexpected")]
+    [Fact]
     public async Task Update_ShouldUpdate_EmailOfExistingUser_ToDatabase()
     {
         // Arrange
