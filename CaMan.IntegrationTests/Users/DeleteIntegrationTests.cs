@@ -40,12 +40,12 @@ public class DeleteIntegrationTests : BaseIntegrationTest
             // Assert
             if (shouldDelete)
             {
-                Assert.Null(await _apiDbContext.Users.FirstOrDefaultAsync(u => u.Id == createdUser.Id));
+                Assert.Null(await _apiDbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == createdUser.Id));
                 Assert.Equal(existingUsersCount, currentUserCount + 1);
             }
             else
             {
-                Assert.NotNull(await _apiDbContext.Users.FirstOrDefaultAsync(u => u.Id == createdUser.Id));
+                Assert.NotNull(await _apiDbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == createdUser.Id));
                 Assert.Equal(existingUsersCount, currentUserCount);
             }
         }

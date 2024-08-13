@@ -47,7 +47,7 @@ public class UpdateIntegrationTests : BaseIntegrationTest
         Assert.Equal(updatedUser.ShortName.Value, fetchedUser.ShortName.Value);
         Assert.Equal(updatedUser.Email.Value, fetchedUser.Email.Value);
 
-        var dbUser = await _apiDbContext.Users.FirstOrDefaultAsync(u => u.Id == updatedUser.Id);
+        var dbUser = await _apiDbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == updatedUser.Id);
         
         Assert.NotNull(dbUser);
         Assert.Equal(updatedUser.Id, dbUser.Id);
@@ -68,7 +68,7 @@ public class UpdateIntegrationTests : BaseIntegrationTest
         var httpResponse =
             await _apiClient.PutAsJsonAsync($"/api/Users/{existingUser.Id.Value}", new { Email = invalidEmail });
         
-        var savedUser = await _apiDbContext.Users.FirstOrDefaultAsync(u => u.Id == existingUser.Id);
+        var savedUser = await _apiDbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == existingUser.Id);
 
         //Assert
         Assert.False(httpResponse.IsSuccessStatusCode);

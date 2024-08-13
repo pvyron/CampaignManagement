@@ -25,7 +25,7 @@ public class RetrieveIntegrationTests : BaseIntegrationTest
     public async Task Retrieve_ShouldReturn_SpecificCount_CreatedUsers_FromDatabase(int usersToCreate, int usersToFetch)
     {
         // Arrange
-        await _apiDbContext.Users.AsQueryable().ExecuteDeleteAsync();
+        await _apiDbContext.Users.ExecuteDeleteAsync();
         
         var createdUsers = await UserHelperMethods.CreateRandomUsersInDb(_apiDbContext, usersToCreate);
 
@@ -63,6 +63,13 @@ public class RetrieveIntegrationTests : BaseIntegrationTest
             Assert.Equal(existingUser.Id, fetchedUser.Id);
             Assert.Equal(existingUser.ShortName.Value, fetchedUser.ShortName.Value);
             Assert.Equal(existingUser.Email.Value, fetchedUser.Email.Value);
+
+            var dbUser = await _apiDbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == fetchedUser.Id);
+
+            Assert.NotNull(dbUser);
+            Assert.Equal(dbUser.Id, existingUser.Id);
+            Assert.Equal(dbUser.ShortName.Value, existingUser.ShortName.Value);
+            Assert.Equal(dbUser.Email.Value, existingUser.Email.Value);
         }
     }
     

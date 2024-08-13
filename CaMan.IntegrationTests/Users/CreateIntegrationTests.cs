@@ -37,7 +37,7 @@ public class CreateIntegrationTests : BaseIntegrationTest
         Assert.Equal(shortName, createdUser.ShortName.Value);
         Assert.Equal(email, createdUser.Email.Value);
 
-        var dbUser = await _apiDbContext.Users.FirstOrDefaultAsync(u => u.Id == createdUser.Id);
+        var dbUser = await _apiDbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == createdUser.Id);
 
         Assert.NotNull(dbUser);
         Assert.Equal(createdUser.ShortName.Value, dbUser.ShortName.Value);
@@ -56,11 +56,11 @@ public class CreateIntegrationTests : BaseIntegrationTest
         var createUser = new CreateUser(shortName, invalidEmail);
         
         // Act
-        var existingUsers = await _apiDbContext.Users.CountAsync();
+        var existingUsers = await _apiDbContext.Users.AsNoTracking().CountAsync();
 
         var httpResponse = await _apiClient.PostAsJsonAsync("/api/Users", createUser);
 
-        var newUsers = await _apiDbContext.Users.CountAsync();
+        var newUsers = await _apiDbContext.Users.AsNoTracking().CountAsync();
         
         //Assert
         Assert.False(httpResponse.IsSuccessStatusCode);
