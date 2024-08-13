@@ -2,16 +2,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Xunit.Abstractions;
 
 namespace CaMan.IntegrationTests.Users;
 
 public class DeleteIntegrationTests : BaseIntegrationTest
 {
-    private readonly ILogger<DeleteIntegrationTests> _logger;
-    
-    public DeleteIntegrationTests(IntegrationTestApiFactory apiFactory) : base(apiFactory)
+    public DeleteIntegrationTests(IntegrationTestApiFactory apiFactory, ITestOutputHelper output) : base(apiFactory, output)
     {
-        _logger = _apiScope.ServiceProvider.GetRequiredService<ILogger<DeleteIntegrationTests>>();
     }
 
     [Fact]

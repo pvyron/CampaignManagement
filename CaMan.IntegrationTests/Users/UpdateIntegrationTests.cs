@@ -4,16 +4,14 @@ using CaMan.IntegrationTests.Users.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Xunit.Abstractions;
 
 namespace CaMan.IntegrationTests.Users;
 
 public class UpdateIntegrationTests : BaseIntegrationTest
 {
-    private readonly ILogger<UpdateIntegrationTests> _logger;
-    
-    public UpdateIntegrationTests(IntegrationTestApiFactory apiFactory) : base(apiFactory)
+    public UpdateIntegrationTests(IntegrationTestApiFactory apiFactory, ITestOutputHelper output) : base(apiFactory, output)
     {
-        _logger = _apiScope.ServiceProvider.GetRequiredService<ILogger<UpdateIntegrationTests>>();
     }
     
     [Fact]
