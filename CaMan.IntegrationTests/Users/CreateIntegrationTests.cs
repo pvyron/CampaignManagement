@@ -17,9 +17,10 @@ public class CreateIntegrationTests : BaseIntegrationTest
     {
         // Arrange
         var shortName = "test";
+        var validPassword = "123!@#QWEqwe";
         var email = "test@test.com";
 
-        var createUser = new CreateUser(shortName, email);
+        var createUser = new CreateUser(shortName, email, validPassword);
 
         // Act
         var httpResponse = await _apiClient.PostAsJsonAsync("/api/Users", createUser);
@@ -48,8 +49,9 @@ public class CreateIntegrationTests : BaseIntegrationTest
     {
         // Arrange
         var shortName = "test";
+        var validPassword = "123!@#QWEqwe";
 
-        var createUser = new CreateUser(shortName, invalidEmail);
+        var createUser = new CreateUser(shortName, invalidEmail, validPassword);
         
         // Act
         var existingUsers = await _apiDbContext.Users.AsNoTracking().CountAsync();

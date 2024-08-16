@@ -29,7 +29,15 @@ public static class UserHelperMethods
     {
         var createdUser = AddUserInDbCollectionInternal(dbContext, $"test_{Ulid.NewUlid()}", new Faker().Internet.Email());
 
-        await dbContext.SaveChangesAsync();
+        try
+        {
+            await dbContext.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            var a = ex.Message;
+            throw;
+        }
 
         return createdUser;
     }
@@ -42,7 +50,15 @@ public static class UserHelperMethods
             createdUsers[i] = AddUserInDbCollectionInternal(dbContext, $"test_{i}", new Faker().Internet.Email());
         }
         
-        await dbContext.SaveChangesAsync();
+        try
+        {
+            await dbContext.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            var a = ex.Message;
+            throw;
+        }
 
         return createdUsers;
     }

@@ -12,7 +12,7 @@ internal class AdministrativeRegionConfiguration : IEntityTypeConfiguration<Admi
         builder.HasKey(c => c.Id);
 
         builder.Property(c => c.Id)
-            .HasConversion(c => c.Value.ToByteArray(), value => new(Ulid.Parse(value)));
+            .HasConversion(c => c.Value.ToString(), value => new(Ulid.Parse(value)));
 
         builder.Property(c => c.ShortName)
             .HasConversion(c => c.Value, value => ShortName.Create(value))
@@ -32,7 +32,7 @@ internal class RegionalUnitConfiguration : IEntityTypeConfiguration<RegionalUnit
         builder.HasKey(c => c.Id);
 
         builder.Property(c => c.Id)
-            .HasConversion(c => c.Value.ToByteArray(), value => new(Ulid.Parse(value)));
+            .HasConversion(c => c.Value.ToString(), value => new(Ulid.Parse(value)));
 
         builder.Property(c => c.ShortName)
             .HasConversion(c => c.Value, value => ShortName.Create(value))
@@ -52,7 +52,7 @@ internal class MunicipalityConfiguration : IEntityTypeConfiguration<Municipality
         builder.HasKey(c => c.Id);
 
         builder.Property(c => c.Id)
-            .HasConversion(c => c.Value.ToByteArray(), value => new(Ulid.Parse(value)));
+            .HasConversion(c => c.Value.ToString(), value => new(Ulid.Parse(value)));
 
         builder.Property(c => c.ShortName)
             .HasConversion(c => c.Value, value => ShortName.Create(value))
@@ -72,7 +72,7 @@ internal class MunicipalUnitConfiguration : IEntityTypeConfiguration<MunicipalUn
         builder.HasKey(c => c.Id);
 
         builder.Property(c => c.Id)
-            .HasConversion(c => c.Value.ToByteArray(), value => new(Ulid.Parse(value)));
+            .HasConversion(c => c.Value.ToString(), value => new(Ulid.Parse(value)));
 
         builder.Property(c => c.ShortName)
             .HasConversion(c => c.Value, value => ShortName.Create(value))

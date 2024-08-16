@@ -68,8 +68,8 @@ namespace CaMan.Persistence.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<byte[]>("AdministrativeRegionId")
-                        .HasColumnType("varbinary(3072)");
+                    b.Property<string>("AdministrativeRegionId")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("AgeGroup")
                         .HasColumnType("int");
@@ -86,14 +86,14 @@ namespace CaMan.Persistence.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("longtext");
 
-                    b.Property<byte[]>("MunicipalUnitId")
-                        .HasColumnType("varbinary(3072)");
+                    b.Property<string>("MunicipalUnitId")
+                        .HasColumnType("varchar(255)");
 
-                    b.Property<byte[]>("MunicipalityId")
-                        .HasColumnType("varbinary(3072)");
+                    b.Property<string>("MunicipalityId")
+                        .HasColumnType("varchar(255)");
 
-                    b.Property<byte[]>("RegionalUnitId")
-                        .HasColumnType("varbinary(3072)");
+                    b.Property<string>("RegionalUnitId")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ShortName")
                         .IsRequired()
@@ -114,8 +114,8 @@ namespace CaMan.Persistence.Migrations
 
             modelBuilder.Entity("CaMan.Domain.ElectoralBodies.AdministrativeRegion", b =>
                 {
-                    b.Property<byte[]>("Id")
-                        .HasColumnType("varbinary(3072)");
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -134,8 +134,8 @@ namespace CaMan.Persistence.Migrations
 
             modelBuilder.Entity("CaMan.Domain.ElectoralBodies.MunicipalUnit", b =>
                 {
-                    b.Property<byte[]>("Id")
-                        .HasColumnType("varbinary(3072)");
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -154,8 +154,8 @@ namespace CaMan.Persistence.Migrations
 
             modelBuilder.Entity("CaMan.Domain.ElectoralBodies.Municipality", b =>
                 {
-                    b.Property<byte[]>("Id")
-                        .HasColumnType("varbinary(3072)");
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -174,8 +174,8 @@ namespace CaMan.Persistence.Migrations
 
             modelBuilder.Entity("CaMan.Domain.ElectoralBodies.RegionalUnit", b =>
                 {
-                    b.Property<byte[]>("Id")
-                        .HasColumnType("varbinary(3072)");
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -280,7 +280,40 @@ namespace CaMan.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("ContactInfoId");
 
+                    b.OwnsOne("CaMan.Domain.Users.Password", "Password", b1 =>
+                        {
+                            b1.Property<string>("UserId")
+                                .HasColumnType("varchar(255)");
+
+                            b1.Property<string>("Hash")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("HashAlgorithmName")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<int>("HashSize")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Iterations")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Salt")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.HasKey("UserId");
+
+                            b1.ToTable("Users");
+
+                            b1.WithOwner()
+                                .HasForeignKey("UserId");
+                        });
+
                     b.Navigation("ContactInfo");
+
+                    b.Navigation("Password");
                 });
 
             modelBuilder.Entity("CaMan.Domain.Campaigns.Campaign", b =>

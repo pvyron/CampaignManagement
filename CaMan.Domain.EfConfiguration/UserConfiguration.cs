@@ -20,8 +20,12 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.Email)
             .HasConversion(email => email.Value, value => Email.Create(value));
 
-        builder.HasOne(u => u.ContactInfo)
-            //.WithOne(c => c.User)
-            ;
+        builder.HasOne(u => u.ContactInfo);
+
+        var passwordBuilder = builder.OwnsOne(u => u.Password);
+        passwordBuilder.Property(p => p.Hash)
+            .HasConversion(h => Convert.ToHexString(h), v => Convert.FromHexString(v));
+        passwordBuilder.Property(p => p.Salt)
+            .HasConversion(s => Convert.ToHexString(s), v => Convert.FromHexString(v));
     }
 }

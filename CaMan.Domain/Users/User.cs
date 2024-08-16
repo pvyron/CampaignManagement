@@ -16,8 +16,9 @@ public sealed class User
     public UserId Id { get; private set; }
     public ShortName ShortName { get; private set; }
     public Email Email { get; private set; }
-    
+
     public Contact? ContactInfo { get; private set; }
+    public Password? Password { get; private set; }
 
     private void CreateContactInfo()
     {
@@ -42,9 +43,18 @@ public sealed class User
     public static User Create(ShortName shortName, Email email)
     {
         var newUser = new User(shortName, email);
-        
+
         newUser.CreateContactInfo();
-        
+
         return newUser;
+    }
+
+    public bool Register(string password)
+    {
+        if (Password is not null)
+            return false;
+
+        Password = Password.Create(password);
+        return true;
     }
 }

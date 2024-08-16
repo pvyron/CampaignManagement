@@ -47,7 +47,7 @@ public class WeatherForecastController : ControllerBase
     }
 
 }
-public record CreateUser(string shortName, string email);
+public record CreateUser(string shortName, string email, string password);
 
 public record UpdateUser(string? shortName, string? email, UpdateContact? contactInfo);
 public record UpdateContact(string? phoneNumber, string? email, string firstName, string lastName);

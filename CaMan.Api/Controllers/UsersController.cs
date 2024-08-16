@@ -50,6 +50,7 @@ public class UsersController : ControllerBase
         var email = Email.Create(createUser.email);
 
         var newUser = CaMan.Domain.Users.User.Create(shortName, email);
+        newUser.Register(createUser.password);
         dbContext.Users.Add(newUser);
         await dbContext.SaveChangesAsync(cancellationToken);
 

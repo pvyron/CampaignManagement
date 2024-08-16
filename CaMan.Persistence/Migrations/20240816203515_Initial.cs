@@ -17,7 +17,8 @@ namespace CaMan.Persistence.Migrations
                 name: "AdministrativeRegion",
                 columns: table => new
                 {
-                    Id = table.Column<byte[]>(type: "varbinary(3072)", nullable: false),
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     ShortName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     FullName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
@@ -52,7 +53,8 @@ namespace CaMan.Persistence.Migrations
                 name: "Municipality",
                 columns: table => new
                 {
-                    Id = table.Column<byte[]>(type: "varbinary(3072)", nullable: false),
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     ShortName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     FullName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
@@ -68,7 +70,8 @@ namespace CaMan.Persistence.Migrations
                 name: "MunicipalUnit",
                 columns: table => new
                 {
-                    Id = table.Column<byte[]>(type: "varbinary(3072)", nullable: false),
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     ShortName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     FullName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
@@ -84,7 +87,8 @@ namespace CaMan.Persistence.Migrations
                 name: "RegionalUnit",
                 columns: table => new
                 {
-                    Id = table.Column<byte[]>(type: "varbinary(3072)", nullable: false),
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     ShortName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     FullName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
@@ -139,10 +143,14 @@ namespace CaMan.Persistence.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CommunicationMethod = table.Column<int>(type: "int", nullable: false),
                     AgeGroup = table.Column<int>(type: "int", nullable: false),
-                    AdministrativeRegionId = table.Column<byte[]>(type: "varbinary(3072)", nullable: true),
-                    RegionalUnitId = table.Column<byte[]>(type: "varbinary(3072)", nullable: true),
-                    MunicipalityId = table.Column<byte[]>(type: "varbinary(3072)", nullable: true),
-                    MunicipalUnitId = table.Column<byte[]>(type: "varbinary(3072)", nullable: true)
+                    AdministrativeRegionId = table.Column<string>(type: "varchar(255)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    RegionalUnitId = table.Column<string>(type: "varchar(255)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    MunicipalityId = table.Column<string>(type: "varchar(255)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    MunicipalUnitId = table.Column<string>(type: "varchar(255)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
@@ -181,6 +189,14 @@ namespace CaMan.Persistence.Migrations
                     Email = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ContactInfoId = table.Column<string>(type: "varchar(255)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Password_Hash = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Password_Salt = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Password_HashSize = table.Column<int>(type: "int", nullable: true),
+                    Password_Iterations = table.Column<int>(type: "int", nullable: true),
+                    Password_HashAlgorithmName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
