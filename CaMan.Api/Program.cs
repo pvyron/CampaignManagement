@@ -46,6 +46,9 @@ app.Run();
 
 
 // Testing reference point
-public partial class Program
+namespace CaMan.Api
 {
-};
+    public partial class Program
+    {
+    };
+}

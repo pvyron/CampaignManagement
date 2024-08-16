@@ -1,8 +1,5 @@
 using CaMan.Domain.Campaigns;
-using CaMan.Domain.Shared;
-using CaMan.Domain.Users;
 using CaMan.Persistence;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
