@@ -1,14 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaMan.Domain", "CaMan.Domain\CaMan.Domain.csproj", "{1598E5AA-7D84-4321-82CD-BFD63CB49FBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaMan.DomainOld", "CaMan.DomainOld\CaMan.DomainOld.csproj", "{1598E5AA-7D84-4321-82CD-BFD63CB49FBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaMan.Domain.EfConfiguration", "CaMan.Domain.EfConfiguration\CaMan.Domain.EfConfiguration.csproj", "{596A1E3E-994C-4A9A-BD63-565C5EC8BDC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaMan.DomainOld.EfConfiguration", "CaMan.DomainOld.EfConfiguration\CaMan.DomainOld.EfConfiguration.csproj", "{596A1E3E-994C-4A9A-BD63-565C5EC8BDC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaMan.Api", "CaMan.Api\CaMan.Api.csproj", "{694DD0E5-25B2-428E-8648-C14CB300403B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaMan.ApiOld", "CaMan.ApiOld\CaMan.ApiOld.csproj", "{694DD0E5-25B2-428E-8648-C14CB300403B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaMan.Persistence", "CaMan.Persistence\CaMan.Persistence.csproj", "{504ED871-CC55-49B8-95DA-3B4808E7A591}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaMan.PersistenceOld", "CaMan.PersistenceOld\CaMan.PersistenceOld.csproj", "{504ED871-CC55-49B8-95DA-3B4808E7A591}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaMan.IntegrationTests", "CaMan.IntegrationTests\CaMan.IntegrationTests.csproj", "{063B329A-20CA-479C-ACAB-CCD2559C90C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaMan.IntegrationTestsOld", "CaMan.IntegrationTestsOld\CaMan.IntegrationTestsOld.csproj", "{063B329A-20CA-479C-ACAB-CCD2559C90C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4A367934-E2C4-4608-AEB4-4B3C89425623}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5891F854-A8D5-49EC-9A4B-A264F3CCD491}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{9FB8079D-3B58-4E67-8540-242391CF5FFC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{CEC2A402-036D-472D-AC75-DECFC603251F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaMan.Domain", "CaMan.Domain\CaMan.Domain.csproj", "{EA1EEDAE-E5C9-4EDB-9F39-9797DF9AE27C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +46,14 @@ Global
 		{063B329A-20CA-479C-ACAB-CCD2559C90C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{063B329A-20CA-479C-ACAB-CCD2559C90C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{063B329A-20CA-479C-ACAB-CCD2559C90C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA1EEDAE-E5C9-4EDB-9F39-9797DF9AE27C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA1EEDAE-E5C9-4EDB-9F39-9797DF9AE27C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA1EEDAE-E5C9-4EDB-9F39-9797DF9AE27C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA1EEDAE-E5C9-4EDB-9F39-9797DF9AE27C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9FB8079D-3B58-4E67-8540-242391CF5FFC} = {4A367934-E2C4-4608-AEB4-4B3C89425623}
+		{CEC2A402-036D-472D-AC75-DECFC603251F} = {4A367934-E2C4-4608-AEB4-4B3C89425623}
+		{EA1EEDAE-E5C9-4EDB-9F39-9797DF9AE27C} = {9FB8079D-3B58-4E67-8540-242391CF5FFC}
 	EndGlobalSection
 EndGlobal
